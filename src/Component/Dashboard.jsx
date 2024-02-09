@@ -2,6 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
+let config = {
+    headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Z-Key',
+    'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, OPTIONS'
+    }
+}
+
+
 const Dashboard = () => {
     const [projects, setProjects] = useState([]);
 
@@ -10,6 +20,7 @@ const Dashboard = () => {
     const [showModal, setShowModal] = useState(false);
 
     const [newProject, setNewProject] = useState({
+        project_id: '',
 
         project_name: '',
 
@@ -45,7 +56,7 @@ const Dashboard = () => {
 
         try {
 
-            const response = await axios.get('http://localhost:2001/projects');
+            const response = await axios.get('http://localhost:3002/projects', config);
 
             setProjects(response.data);
 
@@ -99,7 +110,7 @@ const Dashboard = () => {
 
         try {
 
-            await axios.delete(`http://localhost:2000/projects/${projectId}`);
+            await axios.delete(`http://localhost:3002/projects/${projectId}`, config);
 
             setProjects(projects.filter(project => project.project_id !== projectId));
 
@@ -117,7 +128,7 @@ const Dashboard = () => {
 
             if (editingProject) {
 
-                await axios.put(`http://localhost:2000/projects/${editingProject.project_id}`, newProject);
+                await axios.put(`http://localhost:3002/projects/${editingProject.project_id}`, newProject, config);
 
                 const updatedProjects = projects.map(project => {
 
@@ -135,7 +146,7 @@ const Dashboard = () => {
 
             } else {
 
-                const response = await axios.post('http://localhost:2000/projects', newProject);
+                const response = await axios.post('http://localhost:3002/projects', newProject, config);
 
                 setProjects([...projects, response.data]);
 
@@ -221,7 +232,7 @@ const Dashboard = () => {
                     <div className="flex justify-end space-x-4">
                         {/* Sort button */}
                         <div className='flex border justify-end space-x-4 pl-8 pr-8'>
-                            <button onClick={() => handleSort('employee_name')}>
+                            <button onClick={() => handleSort('project_name')}>
                                 Sort {(isAsc ? '▲' : '▼')}
                             </button>
 
