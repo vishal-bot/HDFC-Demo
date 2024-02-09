@@ -45,7 +45,7 @@ const Dashboard = () => {
 
         try {
 
-            const response = await axios.get('http://localhost:2000/projects');
+            const response = await axios.get('http://localhost:2001/projects');
 
             setProjects(response.data);
 
@@ -480,21 +480,6 @@ const Dashboard = () => {
                                         </div>
                                     </article>
                                 </div>
-
-
-
-
-                                // <article className="flex max-w-xl flex-col border-2 p-4 items-start justify-between">
-                                //     <h2 className="text-lg font-bold mb-2">{project.project_name}</h2>
-                                //     <p>{project.description}</p>
-                                //     <p>Start Date: {project.start_date}</p>
-                                //     <p>Employee Name: {project.employee_name}</p>
-                                //     <p>Designation: {project.designation}</p>
-                                //     <div className="flex justify-end mt-2">
-                                //         <button onClick={() => handleEditProject(project)} className="mr-2 text-blue-500 hover:text-blue-700">Edit</button>
-                                //         <button onClick={() => handleDeleteProject(project.project_id)} className="text-red-500 hover:text-red-700">Delete</button>
-                                //     </div>
-                                // </article>
                             )}
                         </div>
                     ))}
