@@ -43,8 +43,7 @@ const Dashboard = () => {
     const [viewMode, setViewMode] = useState('list');
     const [currentPage, setCurrentPage] = useState(1);
     const projectsPerPage = 6;
-
-
+    const baseUrl = "https://hdfc-demo-backend.onrender.com";
 
     useEffect(() => {
 
@@ -56,7 +55,7 @@ const Dashboard = () => {
 
         try {
 
-            const response = await axios.get('http://localhost:3002/projects', config);
+            const response = await axios.get(`${baseUrl}/projects`, config);
 
             setProjects(response.data);
 
@@ -110,7 +109,7 @@ const Dashboard = () => {
 
         try {
 
-            await axios.delete(`http://localhost:3002/projects/${projectId}`, config);
+            await axios.delete(`${baseUrl}/projects/${projectId}`, config);
 
             setProjects(projects.filter(project => project.project_id !== projectId));
 
@@ -128,7 +127,7 @@ const Dashboard = () => {
 
             if (editingProject) {
 
-                await axios.put(`http://localhost:3002/projects/${editingProject.project_id}`, newProject, config);
+                await axios.put(`${baseUrl}/projects/${editingProject.project_id}`, newProject, config);
 
                 const updatedProjects = projects.map(project => {
 
@@ -146,7 +145,7 @@ const Dashboard = () => {
 
             } else {
 
-                const response = await axios.post('http://localhost:3002/projects', newProject, config);
+                const response = await axios.post(`${baseUrl}/projects', newProject, config);
 
                 setProjects([...projects, response.data]);
 
