@@ -145,7 +145,7 @@ const Dashboard = () => {
 
             } else {
 
-                const response = await axios.post(`${baseUrl}/projects', newProject, config);
+                const response = await axios.post(`${baseUrl}/projects`, newProject, config);
 
                 setProjects([...projects, response.data]);
 
